@@ -14,8 +14,12 @@ def generate_csv(args):
         patch_path = glob.glob(path_temp) # /class_name/bag_name/*.jpeg
     if args.multiscale==0:
       # path_temp = os.path.join('..', 'WSI', args.dataset, 'single', '*', '*', '*.jpeg') 
-        path_temp = os.path.join('/content/drive/MyDrive/Dataset/MIL/test', '*', '*', '*.png') 
-        patch_path = glob.glob(path_temp) # /class_name/bag_name/*.jpeg
+        if os.path.exists('/content/drive/MyDrive/Dataset/MIL/train'):
+            path_temp = os.path.join('/content/drive/MyDrive/Dataset/MIL/test', '*', '*', '*.png') 
+            patch_path = glob.glob(path_temp) # /class_name/bag_name/*.jpeg
+        else:
+            path_temp = os.path.join("F:/dataset/ISIC/2018/train/test", '*', '*', '*.png') 
+            patch_path = glob.glob(path_temp)
         # path_temp = os.path.join('..', 'WSI', args.dataset, 'single', '*', '*', '*.jpeg')
         # patch_path = glob.glob(path_temp) # /class_name/bag_name/*.jpeg
     df = pd.DataFrame(patch_path)
