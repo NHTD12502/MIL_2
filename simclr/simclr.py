@@ -61,6 +61,8 @@ class SimCLR(object):
 
         train_loader, valid_loader = self.dataset.get_data_loaders()
 
+        # return train_loader, valid_loader
+
         model = ResNetSimCLR(**self.config["model"])# .to(self.device)
         if self.config['n_gpu'] > 1:
             device_n = len(eval(self.config['gpu_ids']))
@@ -126,9 +128,24 @@ class SimCLR(object):
                 valid_loss = self._validate(model, valid_loader)
                 if valid_loss < best_valid_loss:
                     # save the model weights
+                    # best_valid_loss = valid_loss
+                    # torch.save(model.state_dict(), os.path.join(model_checkpoints_folder, 'model.pth'))
+                    # print('saved')
+                    # At the end of each epoch or at a checkpoint interval
+    
                     best_valid_loss = valid_loss
-                    torch.save(model.state_dict(), os.path.join(model_checkpoints_folder, 'model.pth'))
-                    print('saved')
+                    checkpoint = {
+                        'epoch': epoch_counter + 1,
+                        'model_state_dict': model.state_dict(),
+                        'optimizer_state_dict': optimizer.state_dict(),
+                        'scheduler_state_dict': scheduler.state_dict(),
+                        'best_valid_loss': best_valid_loss,
+                    }
+                    if apex_support and self.config['fp16_precision']:
+                        checkpoint['amp_state_dict'] = amp.state_dict()
+
+                    torch.save(checkpoint, os.path.join(model_checkpoints_folder, 'checkpoint.pth'))
+                    print('Checkpoint saved')
 
                 self.writer.add_scalar('validation_loss', valid_loss, global_step=valid_n_iter)
                 valid_n_iter += 1
