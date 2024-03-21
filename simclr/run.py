@@ -38,8 +38,9 @@ def main():
     # os.environ['CUDA_VISIBLE_DEVICES']=','.join(str(x) for x in gpu_ids)   
     os.environ['CUDA_VISIBLE_DEVICES'] = str(gpu_ids)
 
-    dataset = DataSetWrapper(config['batch_size'], **config['dataset'])   
-    generate_csv(args)
+    dataset = DataSetWrapper(config['batch_size'], **config['dataset'])
+    if not os.path.exists('all_patches.csv'):
+        generate_csv(args)
     simclr = SimCLR(dataset, config)
     simclr.train()
 
