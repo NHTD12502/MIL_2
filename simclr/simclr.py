@@ -94,9 +94,9 @@ class SimCLR(object):
 
         for epoch_counter in range(self.config['epochs']):
             print(f"Running epoch {epoch_counter + 1} of {self.config['epochs']}")
-            count = 100
+            count = 10
             for (xis, xjs) in train_loader:
-                if count % 100 == 0:
+                if count % 10 == 0:
                     print(f"Running batch {count} of {len(train_loader)}")
                     #print number of element in batch
                     # print (len(train_loader[0]))
