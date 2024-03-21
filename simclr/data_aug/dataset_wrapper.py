@@ -43,7 +43,7 @@ class DataSetWrapper(object):
         data_augment = self._get_simclr_pipeline_transform()
 
         # train_dataset = Dataset(csv_file='all_patches.csv', transform=SimCLRDataTransform(data_augment))
-        train_dataset = Dataset(csv_file='all_patches', transform=SimCLRDataTransform(data_augment))
+        train_dataset = Dataset(csv_file='all_patches.csv', transform=SimCLRDataTransform(data_augment))
         #=======================================================================
         train_loader, valid_loader = self.get_train_validation_data_loaders(train_dataset)
         return train_loader, valid_loader
