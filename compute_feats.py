@@ -62,7 +62,10 @@ def compute_feats(args, bags_list, i_classifier, save_path=None, magnification='
     for i in range(0, num_bags):
         feats_list = []
         if magnification=='single' or magnification=='low':
-            csv_file_path = glob.glob(os.path.join(bags_list[i], '*.jpg')) + glob.glob(os.path.join(bags_list[i], '*.jpeg'))
+            #jpg
+            # csv_file_path = glob.glob(os.path.join(bags_list[i], '*.jpg')) + glob.glob(os.path.join(bags_list[i], '*.jpeg'))
+            #png
+            csv_file_path = glob.glob(os.path.join(bags_list[i], '*.png'))
         elif magnification=='high':
             csv_file_path = glob.glob(os.path.join(bags_list[i], '*'+os.sep+'*.jpg')) + glob.glob(os.path.join(bags_list[i], '*'+os.sep+'*.jpeg'))
             print()
