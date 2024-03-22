@@ -236,7 +236,13 @@ def main():
     if args.magnification == 'tree' or args.magnification == 'low' or args.magnification == 'high' :
         bags_path = os.path.join('WSI', args.dataset, 'pyramid', '*', '*')
     else:
-        bags_path = os.path.join('WSI', args.dataset, 'single', '*', '*')
+
+        # bags_path = os.path.join('WSI', args.dataset, 'single', '*', '*')
+        bags_path = os.path.join('WSI', args.dataset,  '*', '*')
+
+        # bags_path = os.path.join('simclr', 'test',  '*', '*')
+        #=======================
+
     feats_path = os.path.join('datasets', args.dataset)
         
     os.makedirs(feats_path, exist_ok=True)
